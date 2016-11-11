@@ -1,0 +1,7 @@
+{
+  "database" : "todoisdb",
+  "server" : "localhost",
+  "port":"5432",
+  "user":"todoisgo",
+  "password":"pruebas1."
+}
