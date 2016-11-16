@@ -15,7 +15,7 @@ func BuildUserRouter(router *mux.Router) (*mux.Router) {
 	usr.HandleFunc("/{id}",userCtrl.GetById).Methods("GET")
 
 	router.PathPrefix(prefix).Handler(negroni.New(
-		negroni.HandlerFunc(services.VerifiyToken),
+		negroni.HandlerFunc(services.VerifyToken),
 		negroni.Wrap(usr),
 	))
 

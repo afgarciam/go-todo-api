@@ -18,7 +18,7 @@ func BuildTaskRouter(router *mux.Router) (*mux.Router) {
 	task.HandleFunc("/{id}",taskCtrl.Delete).Methods("DELETE")
 
 	router.PathPrefix(prefix).Handler(negroni.New(
-		negroni.HandlerFunc(services.VerifiyToken),
+		negroni.HandlerFunc(services.VerifyToken),
 		negroni.Wrap(task),
 	))
 

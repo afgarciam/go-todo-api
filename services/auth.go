@@ -17,7 +17,7 @@ type token struct {
 	Token string `json:"token"`
 }
 
-func VerifiyToken(w http.ResponseWriter, r * http.Request, next http.HandlerFunc)  {
+func VerifyToken(w http.ResponseWriter, r * http.Request, next http.HandlerFunc)  {
 	tokenHeader := r.Header.Get("Authorization")
 	if(tokenHeader == ""){
 		ResponseError(w,http.StatusForbidden,"Error el token de acceso no enviado", "")
