@@ -11,10 +11,14 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func GetAllTask(w http.ResponseWriter, r *http.Request) {
+type TaskController struct {}
+
+var taskDao *dao.TaskDAO
+
+func (ctrl *TaskController) GetAll(w http.ResponseWriter, r *http.Request) {
 	userEmail := r.Context().Value("user_email")
 
-	tasks, err := dao.GetAllTasks(userEmail.(string))
+	tasks, err := taskDao.GetAll(userEmail.(string))
 	if (err != nil) {
 		services.ResponseError(w, http.StatusInternalServerError, "Error al obtener las tareas del usuario", err.Error())
 		return
@@ -27,7 +31,7 @@ func GetAllTask(w http.ResponseWriter, r *http.Request) {
 }
 
 
-func CreateTask(w http.ResponseWriter, r *http.Request){
+func (ctrl *TaskController) Create(w http.ResponseWriter, r *http.Request){
 	userEmail := r.Context().Value("user_email")
 	task := models.Task{}
 
@@ -37,7 +41,7 @@ func CreateTask(w http.ResponseWriter, r *http.Request){
 		services.ResponseError(w, http.StatusBadRequest, "Error la informacion enviada no es valida", err.Error())
 		return
 	}
-	task, err = dao.CreateTask(task, userEmail.(string))
+	task, err = taskDao.Create(task, userEmail.(string))
 	if (err != nil) {
 		services.ResponseError(w, http.StatusInternalServerError, "Error al crear la tarea", err.Error())
 		return
@@ -46,13 +50,13 @@ func CreateTask(w http.ResponseWriter, r *http.Request){
 	services.ResponseData(w,task)
 }
 
-func DeleteTask(w http.ResponseWriter, r *http.Request){
+func(ctrl *TaskController) Delete(w http.ResponseWriter, r *http.Request){
 	id, err:= strconv.Atoi(mux.Vars(r)["id"])
 	if(err != nil){
 		services.ResponseError(w, http.StatusBadRequest, "Error la informacion enviada no es valida", err.Error())
 		return
 	}
-	err = dao.DeleteTask(id)
+	err = taskDao.Delete(id)
 	if (err != nil) {
 		services.ResponseError(w, http.StatusInternalServerError, "Error al crear la tarea", err.Error())
 		return
@@ -61,13 +65,13 @@ func DeleteTask(w http.ResponseWriter, r *http.Request){
 	services.ResponseData(w,nil)
 }
 
-func UpdateTask(w http.ResponseWriter, r *http.Request){
+func (ctrl *TaskController) Update(w http.ResponseWriter, r *http.Request){
 	id, err:= strconv.Atoi(mux.Vars(r)["id"])
 	if(err != nil){
 		services.ResponseError(w, http.StatusBadRequest, "Error la informacion enviada no es valida", err.Error())
 		return
 	}
-	err = dao.UpdateTask(id)
+	err = taskDao.Update(id)
 	if (err != nil) {
 		services.ResponseError(w, http.StatusInternalServerError, "Error al crear la tarea", err.Error())
 		return

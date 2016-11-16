@@ -4,7 +4,9 @@ import (
 	"todoisAPI/models"
 )
 
-func GetUserById(id int) (*models.User, error)  {
+type UserDAO struct {}
+
+func (dao *UserDAO) GetById(id int) (*models.User, error)  {
 	u := &models.User{}
 	db, err := GetDBConnection()
 	if(err != nil){
@@ -27,7 +29,7 @@ func GetUserById(id int) (*models.User, error)  {
 	return  u, nil
 }
 
-func ValidateUser(data *models.LoginData) (*models.User, error){
+func (dao *UserDAO) Validate(data *models.LoginData) (*models.User, error){
 	u := &models.User{}
 	db, err := GetDBConnection()
 	if(err != nil){

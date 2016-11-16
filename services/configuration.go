@@ -1,8 +1,8 @@
 package services
 
 import (
-	"os"
 	"encoding/json"
+	"io/ioutil"
 )
 
 type ConfigurationDB struct {
@@ -14,14 +14,11 @@ type ConfigurationDB struct {
 }
 
 func (c *ConfigurationDB)  Load() (error) {
-	file, err := os.Open("./configurations/db_config.json")
+	file, err := ioutil.ReadFile("./configurations/db_config.json")
 	if (err != nil) {
 		return err
 	}
-	defer file.Close()
-
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(c)
+	err = json.Unmarshal(file,c)
 	if (err != nil) {
 		return err
 	}

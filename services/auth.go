@@ -5,6 +5,7 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 	"strings"
 	"context"
+	"time"
 )
 type ApiClaims struct {
 	Email string `json:"email"`
@@ -44,8 +45,8 @@ func GenerateToken(userEmail string) (interface{}, error) {
 	claims := ApiClaims{
 		userEmail,
 		jwt.StandardClaims{
-			ExpiresAt: 150000000,
-			Issuer:    "agarcia588",
+			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
+			Issuer:    "Todo is Api",
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

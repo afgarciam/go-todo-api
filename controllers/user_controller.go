@@ -8,13 +8,17 @@ import (
 	"todoisAPI/services"
 )
 
-func GetUserById(w http.ResponseWriter, r *http.Request) {
+type UserController struct {}
+
+var userDao *dao.UserDAO
+
+func (ctrl *UserController) GetById(w http.ResponseWriter, r *http.Request) {
 	id, err:= strconv.Atoi(mux.Vars(r)["id"])
 	if(err != nil){
 		services.ResponseError(w,http.StatusBadRequest,"Error en el valor del parametro id", err.Error())
 		return
 	}
-	user, err :=  dao.GetUserById(id)
+	user, err :=  userDao.GetById(id)
 	if(err != nil){
 		services.ResponseError(w,http.StatusInternalServerError,"Error al obtener los datos del usuario", err.Error())
 		return

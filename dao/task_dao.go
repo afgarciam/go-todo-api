@@ -4,7 +4,9 @@ import (
 	"todoisAPI/models"
 )
 
-func GetAllTasks(email string) ([]models.Task, error)  {
+type TaskDAO struct {}
+
+func (dao *TaskDAO) GetAll(email string) ([]models.Task, error)  {
 	listTask := make([]models.Task,0)
 	db, err := GetDBConnection()
 	if(err != nil){
@@ -35,7 +37,7 @@ func GetAllTasks(email string) ([]models.Task, error)  {
 	return  listTask, nil
 }
 
-func CreateTask(t models.Task, email string) (models.Task, error)  {
+func (dao *TaskDAO) Create(t models.Task, email string) (models.Task, error)  {
 	task := models.Task{}
 	db, err := GetDBConnection()
 	if(err != nil){
@@ -67,7 +69,7 @@ func CreateTask(t models.Task, email string) (models.Task, error)  {
 	return task, nil
 }
 
-func DeleteTask(id int) (error)  {
+func (dao *TaskDAO) Delete(id int) (error)  {
 	db, err := GetDBConnection()
 	if(err != nil){
 		return err
@@ -89,7 +91,7 @@ func DeleteTask(id int) (error)  {
 	return  nil
 }
 
-func UpdateTask(id int) (error)  {
+func (dao *TaskDAO) Update(id int) (error)  {
 	db, err := GetDBConnection()
 	if(err != nil){
 		return err

@@ -8,7 +8,11 @@ import (
 	"todoisAPI/dao"
 )
 
-func Login(w http.ResponseWriter, r *http.Request)  {
+type AuthController struct {}
+
+var authDao *dao.UserDAO
+
+func (ctrl *AuthController) Login(w http.ResponseWriter, r *http.Request)  {
 	loginData := models.LoginData{}
 	err := json.NewDecoder(r.Body).Decode(&loginData)
 	if(err != nil){
@@ -16,7 +20,7 @@ func Login(w http.ResponseWriter, r *http.Request)  {
 		return
 	}
 
-	u, err := dao.ValidateUser(&loginData)
+	u, err := userDao.Validate(&loginData)
 	if(err != nil){
 		services.ResponseError(w,http.StatusInternalServerError,"Error al validar la credenciales del usuario", err.Error())
 		return
