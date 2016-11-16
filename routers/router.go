@@ -7,8 +7,8 @@ import (
 	"github.com/urfave/negroni"
 )
 
-func Router() (*negroni.Negroni) {
 
+func Router() (*negroni.Negroni) {
 	n := negroni.Classic()
 	n.Use(negroni.NewLogger())
 

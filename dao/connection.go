@@ -7,15 +7,15 @@ import (
 	"fmt"
 )
 
+var DBConf services.ConfigurationDB
+
 func GetDBConnection() (*sql.DB, error){
-	conf := &services.ConfigurationDB{}
-	conf.Load()
 	connString := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable",
-		conf.User,
-		conf.Password,
-		conf.Server,
-		conf.DataBase,
-	)
+		DBConf.User,
+		DBConf.Password,
+		DBConf.Server,
+		DBConf.DataBase,
+		)
 	dbContext, err := sql.Open("postgres", connString)
 	if(err != nil){
 		return  dbContext, err

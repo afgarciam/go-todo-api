@@ -3,6 +3,7 @@ package services
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 )
 
 type ConfigurationDB struct {
@@ -13,14 +14,17 @@ type ConfigurationDB struct {
 	Password string
 }
 
-func (c *ConfigurationDB)  Load() (error) {
+
+func  LoadDataBaseConfig() (ConfigurationDB) {
+	var conf ConfigurationDB
+
 	file, err := ioutil.ReadFile("./configurations/db_config.json")
 	if (err != nil) {
-		return err
+		log.Fatal(err)
 	}
-	err = json.Unmarshal(file,c)
+	err = json.Unmarshal(file,&conf)
 	if (err != nil) {
-		return err
+		log.Fatal(err)
 	}
-	return nil
+	return conf
 }

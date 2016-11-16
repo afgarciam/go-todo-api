@@ -14,6 +14,7 @@ func (dao *UserDAO) GetById(id int) (*models.User, error)  {
 	}
 	defer db.Close()
 
+
 	query := "SELECT u.id, u.name, u.email, u.active FROM todo_user as u WHERE u.id = $1"
 	dbQuery, err := db.Prepare(query)
 	if(err != nil){

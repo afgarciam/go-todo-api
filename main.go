@@ -4,17 +4,19 @@ import (
 	"net/http"
 	"fmt"
 	"log"
-	"todoisAPI/services"
 	"todoisAPI/routers"
 	"time"
+	"todoisAPI/services"
+	"todoisAPI/dao"
+	"sync"
 )
 
+var once sync.Once
+
 func main() {
-	conf := services.ConfigurationDB{}
-	err := conf.Load()
-	if(err != nil){
-		log.Fatal(err)
-	}
+	once.Do(func(){
+		dao.DBConf =  services.LoadDataBaseConfig()
+	})
 
 	s:= &http.Server{
 		Addr: ":9003",
