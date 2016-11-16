@@ -4,7 +4,6 @@ import (
 	"github.com/gorilla/mux"
 	"todoisAPI/controllers"
 	"github.com/urfave/negroni"
-	"todoisAPI/services"
 )
 
 func BuildUserRouter(router *mux.Router) (*mux.Router) {
@@ -14,7 +13,7 @@ func BuildUserRouter(router *mux.Router) (*mux.Router) {
 	usr.HandleFunc("/{id}",controllers.GetUserById).Methods("GET")
 
 	router.PathPrefix(prefix).Handler(negroni.New(
-		negroni.HandlerFunc(services.VerifiyToken),
+		//negroni.HandlerFunc(services.VerifiyToken),
 		negroni.Wrap(usr),
 	))
 

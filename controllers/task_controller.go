@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 	"todoisAPI/services"
-	"todoisAPI/models/dao"
+	"todoisAPI/dao"
 	"todoisAPI/models"
 	"encoding/json"
 	//"io/ioutil"

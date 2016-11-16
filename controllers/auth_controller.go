@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"todoisAPI/models"
 	"todoisAPI/services"
-	"todoisAPI/models/dao"
+	"todoisAPI/dao"
 )
 
 func Login(w http.ResponseWriter, r *http.Request)  {

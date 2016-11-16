@@ -36,7 +36,6 @@ func VerifiyToken(w http.ResponseWriter, r * http.Request, next http.HandlerFunc
 func GenerateToken(userEmail string) (interface{}, error) {
 	signing := []byte("_millavesupersecreta_")
 
-
 	type Token struct {
 		Token string `json:"token"`
 	}

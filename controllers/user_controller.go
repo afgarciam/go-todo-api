@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"net/http"
-	"todoisAPI/models/dao"
+	"todoisAPI/dao"
 	"strconv"
 	"github.com/gorilla/mux"
 	"todoisAPI/services"
