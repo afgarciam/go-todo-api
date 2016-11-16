@@ -7,9 +7,14 @@ import (
 	"context"
 	"time"
 )
-type ApiClaims struct {
+
+type apiClaims struct {
 	Email string `json:"email"`
 	jwt.StandardClaims
+}
+
+type token struct {
+	Token string `json:"token"`
 }
 
 func VerifiyToken(w http.ResponseWriter, r * http.Request, next http.HandlerFunc)  {
@@ -22,27 +27,22 @@ func VerifiyToken(w http.ResponseWriter, r * http.Request, next http.HandlerFunc
 	if(strings.ToLower(tokenHeader[0:6]) == "bearer"){
 		tokenString = tokenHeader[7:]
 	}
-	token, err := jwt.ParseWithClaims(tokenString, &ApiClaims{}, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &apiClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte("_millavesupersecreta_"), nil
 	})
 	if(!token.Valid){
 		ResponseError(w,http.StatusForbidden,"Error el token de acceso no es valido", err.Error())
 		return
 	}
-	claims, _ :=token.Claims.(*ApiClaims)
+	claims, _ :=token.Claims.(*apiClaims)
 	ctx := context.WithValue(r.Context(), "user_email", claims.Email)
 	next(w,r.WithContext(ctx))
 }
 
 func GenerateToken(userEmail string) (interface{}, error) {
 	signing := []byte("_millavesupersecreta_")
-
-	type Token struct {
-		Token string `json:"token"`
-	}
-	ts := Token{}
-
-	claims := ApiClaims{
+	ts := token{}
+	claims := apiClaims{
 		userEmail,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
