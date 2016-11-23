@@ -29,6 +29,3 @@ func main() {
 	fmt.Println("Server app in http://127.0.0.1:9003")
 	log.Fatal(s.ListenAndServe())
 }
-
-
-

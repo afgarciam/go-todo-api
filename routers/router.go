@@ -5,12 +5,16 @@ import (
 	"net/http"
 	"fmt"
 	"github.com/urfave/negroni"
+	"github.com/rs/cors"
 )
 
 
 func Router() (*negroni.Negroni) {
+	c := cors.Default()
+
 	n := negroni.Classic()
 	n.Use(negroni.NewLogger())
+	n.Use(c)
 
 	router := mux.NewRouter()
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

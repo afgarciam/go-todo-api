@@ -6,9 +6,9 @@ import (
 	"todoisAPI/dao"
 	"todoisAPI/models"
 	"encoding/json"
-	//"io/ioutil"
 	"strconv"
 	"github.com/gorilla/mux"
+	"github.com/asaskevich/govalidator"
 )
 
 type TaskController struct {}
@@ -32,13 +32,17 @@ func (ctrl *TaskController) GetAll(w http.ResponseWriter, r *http.Request) {
 
 
 func (ctrl *TaskController) Create(w http.ResponseWriter, r *http.Request){
+	defer r.Body.Close()
 	userEmail := r.Context().Value("user_email")
 	task := models.Task{}
-
-	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&task)
+	err := json.NewDecoder(r.Body).Decode(&task)
 	if(err != nil){
 		services.ResponseError(w, http.StatusBadRequest, "Error la informacion enviada no es valida", err.Error())
+		return
+	}
+	result, err :=  govalidator.ValidateStruct(task)
+	if(!result){
+		services.ResponseError(w,http.StatusBadRequest,"Error la estructura para crear la tarea no es correcta",err.Error())
 		return
 	}
 	task, err = taskDao.Create(task, userEmail.(string))
