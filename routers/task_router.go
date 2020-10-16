@@ -1,21 +1,22 @@
 package routers
 
 import (
+	"go-todo-api/controllers"
+	services "go-todo-api/services"
+
 	"github.com/gorilla/mux"
-	"go-todo-apicontrollers"
 	"github.com/urfave/negroni"
-	"go-todo-apiservices"
 )
 
-func BuildTaskRouter(router *mux.Router) (*mux.Router) {
+func BuildTaskRouter(router *mux.Router) *mux.Router {
 	var taskCtrl *controllers.TaskController
 	prefix := "/api/tasks"
 
 	task := mux.NewRouter().PathPrefix(prefix).Subrouter().StrictSlash(false)
-	task.HandleFunc("/",taskCtrl.GetAll).Methods("GET")
-	task.HandleFunc("/",taskCtrl.Create).Methods("POST")
-	task.HandleFunc("/{id}",taskCtrl.Update).Methods("PUT")
-	task.HandleFunc("/{id}",taskCtrl.Delete).Methods("DELETE")
+	task.HandleFunc("/", taskCtrl.GetAll).Methods("GET")
+	task.HandleFunc("/", taskCtrl.Create).Methods("POST")
+	task.HandleFunc("/{id}", taskCtrl.Update).Methods("PUT")
+	task.HandleFunc("/{id}", taskCtrl.Delete).Methods("DELETE")
 
 	router.PathPrefix(prefix).Handler(negroni.New(
 		negroni.HandlerFunc(services.VerifyToken),
@@ -24,4 +25,3 @@ func BuildTaskRouter(router *mux.Router) (*mux.Router) {
 
 	return router
 }
-

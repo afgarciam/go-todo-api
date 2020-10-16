@@ -1,11 +1,12 @@
 package routers
 
 import (
+	"go-todo-api/controllers"
+
 	"github.com/gorilla/mux"
-	"go-todo-apicontrollers"
 )
 
-func BuildAuthRouter(router *mux.Router)  (*mux.Router){
+func BuildAuthRouter(router *mux.Router) *mux.Router {
 	var authCtrl *controllers.AuthController
 	prefix := "/api/auth"
 

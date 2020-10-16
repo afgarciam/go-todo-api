@@ -1,26 +1,26 @@
 package main
 
 import (
-	"net/http"
 	"fmt"
+	"go-todo-api/dao"
+	"go-todo-api/routers"
+	"go-todo-api/services"
 	"log"
-	"go-todo-apirouters"
-	"time"
-	"go-todo-apiservices"
-	"go-todo-apidao"
+	"net/http"
 	"sync"
+	"time"
 )
 
 var once sync.Once
 
 func main() {
-	once.Do(func(){
-		dao.DBConf =  services.LoadDataBaseConfig()
+	once.Do(func() {
+		dao.DBConf = services.LoadDataBaseConfig()
 	})
 
-	s:= &http.Server{
-		Addr: ":9003",
-		Handler: routers.Router(),
+	s := &http.Server{
+		Addr:           ":9003",
+		Handler:        routers.Router(),
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
