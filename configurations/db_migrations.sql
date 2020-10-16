@@ -1,10 +1,11 @@
+CREATE ROLE todoisgo SUPERUSER CREATEDB CREATEROLE NOINHERIT LOGIN;
+
+
 CREATE DATABASE todoisdb
   WITH OWNER = todoisgo
        ENCODING = 'UTF8'
        TABLESPACE = pg_default
-       LC_COLLATE = 'en_US.UTF-8'
-       LC_CTYPE = 'en_US.UTF-8'
-       CONNECTION LIMIT = -1
+       CONNECTION LIMIT = -1;
 
 
 -- Table: todo_user
@@ -14,7 +15,7 @@ CREATE DATABASE todoisdb
 CREATE TABLE todo_user
 (
   name character varying(50),
-  id integer NOT NULL DEFAULT nextval('user_id_seq'::regclass),
+  id serial,
   email character varying(50) NOT NULL,
   active boolean,
   password character varying(200),
@@ -37,7 +38,7 @@ GRANT ALL ON TABLE todo_user TO public;
 CREATE TABLE todo_task
 (
   description character varying(300),
-  id integer NOT NULL DEFAULT nextval('task_id_seq'::regclass),
+  id serial,
   complete boolean DEFAULT false,
   created_at timestamp without time zone DEFAULT now(),
   complete_at timestamp without time zone DEFAULT '2000-01-01 00:00:00'::timestamp without time zone,
