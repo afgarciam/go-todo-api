@@ -2,9 +2,9 @@ package controllers
 
 import (
 	"net/http"
-	"todoisAPI/services"
-	"todoisAPI/dao"
-	"todoisAPI/models"
+	"go-todo-apiservices"
+	"go-todo-apidao"
+	"go-todo-apimodels"
 	"encoding/json"
 	"strconv"
 	"github.com/gorilla/mux"

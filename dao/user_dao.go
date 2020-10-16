@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"todoisAPI/models"
+	"go-todo-apimodels"
 )
 
 type UserDAO struct {}

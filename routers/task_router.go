@@ -2,9 +2,9 @@ package routers
 
 import (
 	"github.com/gorilla/mux"
-	"todoisAPI/controllers"
+	"go-todo-apicontrollers"
 	"github.com/urfave/negroni"
-	"todoisAPI/services"
+	"go-todo-apiservices"
 )
 
 func BuildTaskRouter(router *mux.Router) (*mux.Router) {

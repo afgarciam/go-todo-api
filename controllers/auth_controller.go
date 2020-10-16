@@ -3,9 +3,9 @@ package controllers
 import (
 	"net/http"
 	"encoding/json"
-	"todoisAPI/models"
-	"todoisAPI/services"
-	"todoisAPI/dao"
+	"go-todo-apimodels"
+	"go-todo-apiservices"
+	"go-todo-apidao"
 	"github.com/asaskevich/govalidator"
 	"log"
 )

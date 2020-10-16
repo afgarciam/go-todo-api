@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/gorilla/mux"
-	"todoisAPI/controllers"
+	"go-todo-apicontrollers"
 )
 
 func BuildAuthRouter(router *mux.Router)  (*mux.Router){

@@ -2,10 +2,10 @@ package controllers
 
 import (
 	"net/http"
-	"todoisAPI/dao"
+	"go-todo-apidao"
 	"strconv"
 	"github.com/gorilla/mux"
-	"todoisAPI/services"
+	"go-todo-apiservices"
 )
 
 type UserController struct {}

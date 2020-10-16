@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"fmt"
 	"log"
-	"todoisAPI/routers"
+	"go-todo-apirouters"
 	"time"
-	"todoisAPI/services"
-	"todoisAPI/dao"
+	"go-todo-apiservices"
+	"go-todo-apidao"
 	"sync"
 )
 

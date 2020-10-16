@@ -3,7 +3,7 @@ package dao
 import (
 	"database/sql"
 	_ "github.com/lib/pq"
-	"todoisAPI/services"
+	"go-todo-apiservices"
 	"fmt"
 )
 
